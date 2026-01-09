@@ -7,6 +7,7 @@ import {
   sportsOpenQuestions,
   generalOpenQuestions,
 } from "./questionBank";
+import { getDailyQuestions } from "./dailyQuestions";
 
 // Simple hash function to convert date string to a number
 function hashDate(dateString: string): number {
@@ -43,6 +44,16 @@ export function getTodaysGame(): DailyGame {
   const today = new Date();
   const dateString = today.toISOString().split("T")[0]; // YYYY-MM-DD
 
+  // Check for curated daily questions first
+  const curatedQuestions = getDailyQuestions(dateString);
+  if (curatedQuestions && curatedQuestions.length >= 5) {
+    return {
+      date: dateString,
+      questions: curatedQuestions.slice(0, 5),
+    };
+  }
+
+  // Fall back to random selection from question bank
   const seed = hashDate(dateString);
   const random = seededRandom(seed);
 
