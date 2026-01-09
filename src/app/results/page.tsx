@@ -13,11 +13,34 @@ interface GameResults {
 export default function ResultsPage() {
   const [results, setResults] = useState<GameResults | null>(null);
   const [copied, setCopied] = useState(false);
+  const [streak, setStreak] = useState(1);
 
   useEffect(() => {
     const stored = localStorage.getItem("lastGameResults");
     if (stored) {
       setResults(JSON.parse(stored));
+    }
+
+    // Track streak
+    const lastPlayedDate = localStorage.getItem("lastPlayedDate");
+    const currentStreak = parseInt(localStorage.getItem("currentStreak") || "0");
+    const today = new Date().toISOString().split("T")[0];
+    const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0];
+
+    if (lastPlayedDate === today) {
+      // Already played today, keep current streak
+      setStreak(currentStreak);
+    } else if (lastPlayedDate === yesterday) {
+      // Played yesterday, increment streak
+      const newStreak = currentStreak + 1;
+      localStorage.setItem("currentStreak", newStreak.toString());
+      localStorage.setItem("lastPlayedDate", today);
+      setStreak(newStreak);
+    } else {
+      // Streak broken or first time
+      localStorage.setItem("currentStreak", "1");
+      localStorage.setItem("lastPlayedDate", today);
+      setStreak(1);
     }
   }, []);
 
@@ -68,7 +91,7 @@ export default function ResultsPage() {
   // Generate shareable text
   const getShareText = () => {
     const emojiRow = results.scores.map(getEmoji).join("");
-    return `The Daily Take\n${formatDate(results.date)}\n\n${emojiRow}\n\n${totalScore}/${maxScore}\n\nthe-daily-take.vercel.app`;
+    return `The Daily Take\n${formatDate(results.date)}\n\n${emojiRow}\n\n${totalScore}/${maxScore}\n🔥 ${streak} day streak\n\nthe-daily-take.vercel.app`;
   };
 
   const handleShare = async () => {
@@ -99,6 +122,17 @@ export default function ResultsPage() {
     return "text-slate-500";
   };
 
+  // Get performance message based on percentage
+  const getPerformanceMessage = () => {
+    const percentage = Math.round((totalScore / maxScore) * 100);
+    if (percentage >= 90) return "Exceptional!";
+    if (percentage >= 75) return "Impressive!";
+    if (percentage >= 60) return "Well played!";
+    if (percentage >= 40) return "Solid effort!";
+    if (percentage >= 20) return "Room to grow!";
+    return "Tough one!";
+  };
+
   return (
     <div className="bg-slate-900 text-white">
       {/* ========== SCREENSHOT AREA ========== */}
@@ -126,9 +160,20 @@ export default function ResultsPage() {
         </div>
 
         {/* Total Score */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-4">
           <span className="text-6xl font-bold">{totalScore}</span>
           <span className="text-slate-500 text-3xl">/{maxScore}</span>
+        </div>
+
+        {/* Performance Message */}
+        <p className="text-center text-xl text-slate-300 mb-6">
+          {getPerformanceMessage()}
+        </p>
+
+        {/* Streak */}
+        <div className="flex justify-center items-center gap-2 mb-8">
+          <span className="text-amber-500 text-lg">🔥</span>
+          <span className="text-slate-400">{streak} day streak</span>
         </div>
 
         {/* URL for screenshot */}
