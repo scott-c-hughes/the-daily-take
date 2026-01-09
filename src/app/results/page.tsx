@@ -101,20 +101,20 @@ export default function ResultsPage() {
 
   return (
     <div className="bg-slate-900 text-white">
-      {/* ========== SCREENSHOT AREA - fills viewport ========== */}
-      <div className="h-screen flex flex-col justify-center max-w-md mx-auto px-4">
+      {/* ========== SCREENSHOT AREA ========== */}
+      <div className="max-w-md mx-auto px-4 pt-12 pb-6">
         {/* Logo */}
         <h1 className="text-3xl font-bold text-center mb-1 tracking-tight">
           The Daily Take
         </h1>
 
         {/* Date */}
-        <p className="text-slate-500 text-center text-sm mb-12">
+        <p className="text-slate-500 text-center text-sm mb-8">
           {formatDate(results.date)}
         </p>
 
         {/* Score Blocks */}
-        <div className="flex justify-center gap-3 mb-12">
+        <div className="flex justify-center gap-3 mb-8">
           {results.scores.map((score, index) => (
             <div
               key={index}
@@ -126,24 +126,20 @@ export default function ResultsPage() {
         </div>
 
         {/* Total Score */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8">
           <span className="text-6xl font-bold">{totalScore}</span>
           <span className="text-slate-500 text-3xl">/{maxScore}</span>
         </div>
 
         {/* URL for screenshot */}
-        <p className="text-slate-600 text-center text-sm">
+        <p className="text-slate-600 text-center text-sm mb-6">
           the-daily-take.vercel.app
         </p>
-      </div>
-      {/* ========== END SCREENSHOT AREA ========== */}
 
-      {/* Everything below requires scrolling */}
-      <div className="max-w-md mx-auto px-4 py-8">
-        {/* Buttons */}
+        {/* Share Button - in screenshot area */}
         <button
           onClick={handleShare}
-          className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-4 rounded-xl transition-all mb-3 flex items-center justify-center gap-2"
+          className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-4 rounded-xl transition-all flex items-center justify-center gap-2"
         >
           {copied ? (
             <>
@@ -161,7 +157,11 @@ export default function ResultsPage() {
             </>
           )}
         </button>
+      </div>
+      {/* ========== END SCREENSHOT AREA ========== */}
 
+      {/* Below the fold */}
+      <div className="max-w-md mx-auto px-4 pb-8">
         <Link
           href="/"
           className="block w-full text-center border border-slate-700 hover:border-slate-500 text-slate-400 hover:text-white font-semibold py-3 rounded-xl transition-all mb-8"
