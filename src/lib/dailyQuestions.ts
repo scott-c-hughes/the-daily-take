@@ -17,9 +17,9 @@ export const dailyQuestions: Record<string, Question[]> = {
   // ============================================
   // EXAMPLE - Replace with real questions
   // ============================================
-  "2025-01-09": [
+  "2026-01-09": [
     {
-      id: "daily-2025-01-09-1",
+      id: "daily-2026-01-09-1",
       type: "open",
       category: "finance",
       question: "Name a company in the 'Magnificent Seven' tech stocks",
@@ -35,7 +35,7 @@ export const dailyQuestions: Record<string, Question[]> = {
       },
     },
     {
-      id: "daily-2025-01-09-2",
+      id: "daily-2026-01-09-2",
       type: "open",
       category: "sports",
       question: "Name an NFL team that clinched a playoff spot in 2024",
@@ -62,21 +62,21 @@ export const dailyQuestions: Record<string, Question[]> = {
       },
     },
     {
-      id: "daily-2025-01-09-3",
+      id: "daily-2026-01-09-3",
       type: "ranked",
       category: "finance",
       question: "Rank these by 2024 stock performance (best to worst): Nvidia, Apple, Tesla, Microsoft",
       rankedList: ["Nvidia", "Tesla", "Apple", "Microsoft"],
     },
     {
-      id: "daily-2025-01-09-4",
+      id: "daily-2026-01-09-4",
       type: "ranked",
       category: "sports",
       question: "Rank these NFL teams by 2024 regular season wins: Chiefs, Lions, Vikings, Eagles",
       rankedList: ["Lions", "Chiefs", "Vikings", "Eagles"],
     },
     {
-      id: "daily-2025-01-09-5",
+      id: "daily-2026-01-09-5",
       type: "open",
       category: "general",
       question: "Name a world leader who resigned or was removed from office in 2024",
@@ -101,9 +101,9 @@ export const dailyQuestions: Record<string, Question[]> = {
   // ADD NEW DATES BELOW
   // ============================================
 
-  "2025-01-10": [
+  "2026-01-10": [
     {
-      id: "daily-2025-01-10-1",
+      id: "daily-2026-01-10-1",
       type: "open",
       category: "finance",
       question: "Name one of the 'Magnificent Seven' tech stocks",
@@ -119,7 +119,7 @@ export const dailyQuestions: Record<string, Question[]> = {
       },
     },
     {
-      id: "daily-2025-01-10-2",
+      id: "daily-2026-01-10-2",
       type: "open",
       category: "sports",
       question: "Name one of the 14 teams in the 2025 NFL Playoffs",
@@ -155,21 +155,21 @@ export const dailyQuestions: Record<string, Question[]> = {
       },
     },
     {
-      id: "daily-2025-01-10-3",
+      id: "daily-2026-01-10-3",
       type: "ranked",
       category: "general",
       question: "Rank these LA-area wildfires by acres burned (most to least): Palisades, Eaton, Kenneth, Hurst",
       rankedList: ["Palisades", "Eaton", "Hurst", "Kenneth"],
     },
     {
-      id: "daily-2025-01-10-4",
+      id: "daily-2026-01-10-4",
       type: "ranked",
       category: "sports",
       question: "Rank these NFL quarterbacks by 2024 regular season passing yards: Josh Allen, Lamar Jackson, Jared Goff, Joe Burrow",
       rankedList: ["Joe Burrow", "Jared Goff", "Josh Allen", "Lamar Jackson"],
     },
     {
-      id: "daily-2025-01-10-5",
+      id: "daily-2026-01-10-5",
       type: "open",
       category: "general",
       question: "Name a living former U.S. President who attended Jimmy Carter's funeral",
