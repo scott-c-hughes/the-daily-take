@@ -48,7 +48,7 @@ export default function ResultsPage() {
       return "🔴";
     });
 
-    return `The Daily Take - ${results.date}\n\n${scoreEmojis.join(" ")}\n\nScore: ${totalScore}/${maxScore} (${percentage}%)\n\nPlay at: thedailytake.com`;
+    return `The Daily Take - ${results.date}\n\n${scoreEmojis.join(" ")}\n\nScore: ${totalScore}/${maxScore} (${percentage}%)\n\nPlay at: the-daily-take.vercel.app`;
   };
 
   const handleShare = async () => {
