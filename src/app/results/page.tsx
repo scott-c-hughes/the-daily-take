@@ -101,74 +101,81 @@ export default function ResultsPage() {
 
   return (
     <div className="min-h-screen bg-slate-900 text-white">
-      <div className="max-w-md mx-auto px-4 py-8">
-
-        {/* ========== SCREENSHOT CARD ========== */}
-        <div className="bg-slate-900 rounded-2xl p-8 mb-6">
+      {/* ========== SCREENSHOT AREA - fills viewport ========== */}
+      <div className="min-h-screen flex flex-col">
+        <div className="flex-1 flex flex-col justify-center max-w-md mx-auto px-4 w-full">
           {/* Logo */}
-          <h1 className="text-2xl font-bold text-center mb-1 tracking-tight">
+          <h1 className="text-3xl font-bold text-center mb-1 tracking-tight">
             The Daily Take
           </h1>
 
           {/* Date */}
-          <p className="text-slate-500 text-center text-sm mb-8">
+          <p className="text-slate-500 text-center text-sm mb-12">
             {formatDate(results.date)}
           </p>
 
           {/* Score Blocks */}
-          <div className="flex justify-center gap-2 mb-8">
+          <div className="flex justify-center gap-3 mb-12">
             {results.scores.map((score, index) => (
               <div
                 key={index}
-                className={`w-12 h-12 rounded-lg ${getBlockColor(score)} flex items-center justify-center`}
+                className={`w-14 h-14 rounded-lg ${getBlockColor(score)} flex items-center justify-center`}
               >
-                <span className="text-white font-bold text-sm">{score}</span>
+                <span className="text-white font-bold">{score}</span>
               </div>
             ))}
           </div>
 
           {/* Total Score */}
-          <div className="text-center">
-            <span className="text-5xl font-bold">{totalScore}</span>
-            <span className="text-slate-500 text-2xl">/{maxScore}</span>
+          <div className="text-center mb-16">
+            <span className="text-6xl font-bold">{totalScore}</span>
+            <span className="text-slate-500 text-3xl">/{maxScore}</span>
           </div>
+
+          {/* URL for screenshot */}
+          <p className="text-slate-600 text-center text-sm mb-8">
+            the-daily-take.vercel.app
+          </p>
         </div>
-        {/* ========== END SCREENSHOT CARD ========== */}
 
-        {/* Share Button */}
-        <button
-          onClick={handleShare}
-          className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-4 rounded-xl transition-all mb-3 flex items-center justify-center gap-2"
-        >
-          {copied ? (
-            <>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Copied!
-            </>
-          ) : (
-            <>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-              </svg>
-              Share Results
-            </>
-          )}
-        </button>
+        {/* Buttons at bottom of viewport */}
+        <div className="max-w-md mx-auto px-4 pb-8 w-full">
+          {/* Share Button */}
+          <button
+            onClick={handleShare}
+            className="w-full bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold py-4 rounded-xl transition-all mb-3 flex items-center justify-center gap-2"
+          >
+            {copied ? (
+              <>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Copied!
+              </>
+            ) : (
+              <>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                Share Results
+              </>
+            )}
+          </button>
 
-        {/* Play Again */}
-        <Link
-          href="/"
-          className="block w-full text-center border border-slate-700 hover:border-slate-500 text-slate-400 hover:text-white font-semibold py-3 rounded-xl transition-all mb-8"
-        >
-          Back to Home
-        </Link>
+          {/* Play Again */}
+          <Link
+            href="/"
+            className="block w-full text-center border border-slate-700 hover:border-slate-500 text-slate-400 hover:text-white font-semibold py-3 rounded-xl transition-all"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+      {/* ========== END SCREENSHOT AREA ========== */}
 
-        {/* Divider */}
+      {/* Question Breakdown - completely below the fold */}
+      <div className="max-w-md mx-auto px-4 pb-8">
         <div className="border-t border-slate-800 mb-6"></div>
-
-        {/* Question Breakdown (below the fold) */}
         <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-4">
           Your Answers
         </h2>
