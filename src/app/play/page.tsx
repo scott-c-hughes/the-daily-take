@@ -51,17 +51,56 @@ export default function PlayPage() {
   const questionNumber = gameState.currentQuestionIndex + 1;
   const totalQuestions = game.questions.length;
 
+  // Decoy answers by category - mixed in with real answers
+  const decoyAnswers: Record<string, string[]> = {
+    finance: [
+      "Intel", "Oracle", "IBM", "Cisco", "Netflix", "Uber", "Lyft", "Snap", "Twitter",
+      "PayPal", "Square", "Block", "Shopify", "Zoom", "Slack", "Salesforce", "Adobe",
+      "VMware", "Dell", "HP", "Qualcomm", "Broadcom", "Texas Instruments", "Micron",
+      "Western Digital", "Seagate", "Nokia", "Ericsson", "SAP", "Palantir", "Snowflake",
+      "Databricks", "Stripe", "Plaid", "Robinhood", "Coinbase", "Binance", "FTX",
+      "Goldman Sachs", "Morgan Stanley", "Citigroup", "Bank of America", "Wells Fargo",
+      "BlackRock", "Vanguard", "Fidelity", "Charles Schwab", "TD Ameritrade"
+    ],
+    sports: [
+      "Patriots", "Cowboys", "Packers", "Bears", "Giants", "Jets", "Dolphins", "Raiders",
+      "Broncos", "Chiefs", "Chargers", "49ers", "Seahawks", "Cardinals", "Rams", "Saints",
+      "Falcons", "Panthers", "Buccaneers", "Vikings", "Lions", "Browns", "Bengals", "Steelers",
+      "Ravens", "Colts", "Titans", "Jaguars", "Texans", "Bills", "Eagles", "Commanders",
+      "Lakers", "Celtics", "Warriors", "Bulls", "Heat", "Knicks", "Nets", "Mavericks",
+      "Spurs", "Rockets", "Suns", "Nuggets", "Clippers", "Cavaliers", "76ers", "Bucks"
+    ],
+    general: [
+      "Biden", "Trump", "Obama", "Bush", "Clinton", "Carter", "Reagan", "Nixon",
+      "Germany", "France", "UK", "Japan", "China", "Brazil", "India", "Canada", "Australia",
+      "Mexico", "Spain", "Italy", "Russia", "South Korea", "Argentina", "Poland", "Netherlands",
+      "Apple", "Google", "Amazon", "Microsoft", "Facebook", "Netflix", "Tesla", "SpaceX",
+      "New York", "Los Angeles", "Chicago", "Houston", "Phoenix", "Philadelphia", "San Antonio",
+      "San Diego", "Dallas", "San Jose", "Austin", "Jacksonville", "San Francisco", "Seattle"
+    ],
+  };
+
   // Handle text input for open questions
   const handleTextChange = (value: string) => {
     setTextAnswer(value);
 
-    // Filter suggestions
+    // Filter suggestions from both valid answers AND decoys
     if (value.length >= 1 && currentQuestion.type === "open") {
       const validAnswers = getValidAnswers(currentQuestion);
-      const filtered = validAnswers.filter((answer) =>
+      const categoryDecoys = decoyAnswers[currentQuestion.category] || [];
+
+      // Combine real answers with decoys
+      const allOptions = [...new Set([...validAnswers, ...categoryDecoys])];
+
+      // Filter by what user typed
+      const filtered = allOptions.filter((answer) =>
         answer.toLowerCase().includes(value.toLowerCase())
       );
-      setSuggestions(filtered.slice(0, 5));
+
+      // Shuffle so correct answers aren't always first
+      const shuffled = filtered.sort(() => Math.random() - 0.5);
+
+      setSuggestions(shuffled.slice(0, 8));
     } else {
       setSuggestions([]);
     }
